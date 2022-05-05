@@ -1,7 +1,7 @@
 package com.netcalculator.netcalculator.service;
 
 public interface EmployeeTax {
-    double calculateEmployeePensionContributionAmount();
+    double calculateEmployeePensionContributionAmount(double net, double allowance);
 
-    double calculateTierTwoAndTierThree();
+    double calculateTierTwoAndTierThree(double net, double allowance);
 }
