@@ -1,7 +1,10 @@
 package com.netcalculator.netcalculator.service;
 
-public interface EmployeeTax {
-    double calculateEmployeePensionContributionAmount(double allowance);
+import static com.netcalculator.netcalculator.service.Accumulator.calculateGross;
+import static com.netcalculator.netcalculator.service.impl.EmployeeTaxImpl.percentageOfTierTwoAndThree;
 
-    double calculateTierTwoAndTierThree(double allowance);
+public abstract class EmployeeTax {
+    static double calculateEmployeePensionContributionAmount(double net, double allowance) {
+        return calculateGross(net, allowance) * percentageOfTierTwoAndThree;
+    }
 }
