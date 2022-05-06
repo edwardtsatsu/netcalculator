@@ -8,7 +8,7 @@ public abstract class Accumulator {
         return calculateBasicSalary(net, allowance) + allowance;
     }
 
-    static double calculateBasicSalary(double net, double allowance) {
+    protected static double calculateBasicSalary(double net, double allowance) {
         return net / (1 - EmployeeTaxImpl.percentageOfTierTwoAndThree - Taxable.calculateTaxPayPercentage(net)) - allowance;
     }
 }
