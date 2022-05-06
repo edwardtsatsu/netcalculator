@@ -1,6 +1,7 @@
 package com.netcalculator.netcalculator.service;
 
 import com.netcalculator.netcalculator.response.ClientResponse;
+import com.netcalculator.netcalculator.service.impl.AccumulatorImpl;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,12 +19,14 @@ public class TaxServiceManger {
     }
 
     public ClientResponse getRequiredDetails(double net, double allowance) {
+        double deductions = net - accumulator.calculateGross(allowance);
+        System.out.println(deductions);
         return ClientResponse.builder()
-                             .grossSalary(accumulator.calculateActualGross(net, allowance))
-                             .basicSalary(accumulator.calculateBasicSalary(net, allowance))
-                             .totalTaxPayeTax(taxable.calculateTotalPayETax(net, net, allowance))
-                             .employeePensionContributionAmount(employeeTax.calculateEmployeePensionContributionAmount(net, allowance))
-                             .employerPensionAmount(employerTax.calculateEmployerPensionAmount(net, allowance))
+                             .grossSalary(accumulator.calculateGross(allowance))
+                             .basicSalary(AccumulatorImpl.calculateBasicSalary())
+                             .totalTaxPayeTax(taxable.calculateTotalPayETax(accumulator.calculateGross(allowance), allowance))
+                             .employeePensionContributionAmount(employeeTax.calculateEmployeePensionContributionAmount(allowance))
+                             .employerPensionAmount(employerTax.calculateEmployerPensionAmount(allowance))
                              .build();
     }
 }
