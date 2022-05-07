@@ -12,9 +12,16 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(GrossCanNotBeLessThanOneException.class)
-    public ResponseEntity<ErrorResponse> handleAvailabilityNotFoundException(GrossCanNotBeLessThanOneException grossCanNotBeLessThanOneException, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponse> GrossCanNotBeLessThanOneException(GrossCanNotBeLessThanOneException grossCanNotBeLessThanOneException, WebRequest webRequest) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage(grossCanNotBeLessThanOneException.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BasicSalaryCanNotBeZeroException.class)
+    public ResponseEntity<ErrorResponse> BasicSalaryCanNotBeZeroException(BasicSalaryCanNotBeZeroException basicSalaryCanNotBeZeroException, WebRequest webRequest) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(basicSalaryCanNotBeZeroException.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }
