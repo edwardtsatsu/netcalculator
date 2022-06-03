@@ -15,13 +15,20 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> GrossCanNotBeLessThanOneException(GrossCanNotBeLessThanOneException grossCanNotBeLessThanOneException, WebRequest webRequest) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage(grossCanNotBeLessThanOneException.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.REQUEST_TIMEOUT);
     }
 
     @ExceptionHandler(BasicSalaryCanNotBeZeroException.class)
     public ResponseEntity<ErrorResponse> BasicSalaryCanNotBeZeroException(BasicSalaryCanNotBeZeroException basicSalaryCanNotBeZeroException, WebRequest webRequest) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage(basicSalaryCanNotBeZeroException.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.REQUEST_TIMEOUT);
+    }
+
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<ErrorResponse> studentNotFoundException(StudentNotFoundException studentNotFoundException, WebRequest webRequest) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(studentNotFoundException.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }

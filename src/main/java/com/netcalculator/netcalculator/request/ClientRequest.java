@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ClientRequest {
-    private double net;
-    private double allowance;
+    private Double net;
+    private Double allowance;
 }
