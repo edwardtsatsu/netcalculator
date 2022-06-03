@@ -2,7 +2,6 @@ package com.netcalculator.netcalculator.service.impl;
 
 import com.netcalculator.netcalculator.converter.StudentRequestToStudentResponse;
 import com.netcalculator.netcalculator.exception.StudentNotFoundException;
-import com.netcalculator.netcalculator.model.Student;
 import com.netcalculator.netcalculator.request.StudentRequest;
 import com.netcalculator.netcalculator.response.StudentResponse;
 import com.netcalculator.netcalculator.service.StudentService;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,11 +23,18 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
-    public List<StudentResponse> getAllStudent(String firstName) {
-        List<StudentResponse> collect = studentDB.stream().filter(x -> x.getFirstName().equals(firstName)).collect(Collectors.toList());
-        if (collect.isEmpty()){
-            throw  new StudentNotFoundException("student with name "+ firstName + " not found");
+    public List<StudentResponse> getAllStudentByIndexNumber(String indexNumber) {
+        Optional<StudentResponse> studentIndexNumber = studentDB.stream().filter(x -> x.getIndexNumber().equals(indexNumber)).findFirst();
+
+
+        if (studentIndexNumber.isEmpty()) {
+            throw new StudentNotFoundException("student with name " + indexNumber + " not found");
         }
-        return collect;
+        return studentIndexNumber.stream().toList();
+    }
+
+    @Override
+    public List<StudentResponse> getAllStudents() {
+        return studentDB;
     }
 }
